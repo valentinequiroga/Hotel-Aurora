@@ -15,7 +15,7 @@
   --color-surface: #ffffff;   /* Tarjetas */
   --color-text: #1f2933;      /* Texto */
   --color-muted: #5b6470;     /* Texto secundario */
-  --color-primary: #1e2a44;   /* Azul noche */
+  --color-primary: #5B4C48;   /* Marron */
   --color-accent: #c9a86a;    /* Dorado: detalles y hover */
   --color-line: #e5e1da;      /* Gris claro: bordes */
 
@@ -51,7 +51,7 @@ h1, h2, h3 {
   .btn-light {
     @apply inline-flex items-center justify-center gap-2 rounded-card px-5 py-2.5 text-sm font-medium transition duration-200 disabled:cursor-not-allowed disabled:opacity-50;
   }
-  /* Principal: azul noche, hover dorado */
+  /* Principal: marrón, hover dorado */
   .btn-primary {
     @apply bg-primary text-white hover:bg-accent hover:text-primary;
   }
