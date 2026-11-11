@@ -1,59 +1,54 @@
+import { useState } from "react";
 import { useData } from "../../context/DataContext";
-import { useAuth } from "../../context/AuthContext"
+import { useAuth } from "../../context/AuthContext";
+import { RESERVATION_STATUS } from "../../data/constants";
 import { formatDate } from "../../utils/dates";
 import { formatCurrency } from "../../utils/format";
-
 
 export default function AdminReservations() {
   const { reservations, getRoomById } = useData();
   const { getUserById } = useAuth();
+  const [filter, setFilter] = useState("todas");
+
+  const visible =
+    filter === "todas"
+      ? reservations
+      : reservations.filter((res) => res.status === filter);
 
   return (
-    <table className="mt-8 w-full text-left text-sm">
-      
-      <thead>
-        <tr>
-          <th>Huésped</th>
-          <th>Habitación</th>
-          <th>Fechas</th>
-          <th>Total</th>
-          <th>Estado</th>
-        </tr>
-      </thead>
+    <div>
+      <span className="accent-rule" aria-hidden="true" />
+      <h1 className="text-4xl md:text-5xl">Reservas</h1>
 
-    <tbody>
-      {reservations.map((res) => (
-        <tr key={res.id}>
-          <td>{getUserById(res.userId)?.name}</td>
-          <td>{getRoomById(res.roomId)?.name}</td>
-          <td>{formatDate(res.checkIn)} → {formatDate(res.checkOut)}</td>
-          <td>{formatCurrency(res.total)}</td>
-          <td>{res.status}</td>
-        </tr>
-      ))}
+      <select value={filter} onChange={(e) => setFilter(e.target.value)}>
+        <option value="todas">Todas</option>
+        {Object.values(RESERVATION_STATUS).map((s) => (
+          <option key={s} value={s}>{s}</option>
+        ))}
+      </select>
 
-
-    </tbody>
-
-    </table>
-
-
-
-
-    /*
-        <div>
-          <span className="accent-rule" aria-hidden="true" />
-          <h1 className="text-4xl md:text-5xl">Reservas</h1>
-    
-          <ul className="mt-8 space-y-2">
-            {reservations.map((res) => (
-              <li key={res.id}>
-                {getUserById(res.userId)?.name} 
-                <br />
-                {res.id} · {getRoomById(res.roomId)?.name} · {res.status}
-              </li>
-            ))}
-          </ul>
-        </div>*/
+      <table className="mt-8 w-full text-left text-sm">
+        <thead>
+          <tr>
+            <th>Huésped</th>
+            <th>Habitación</th>
+            <th>Fechas</th>
+            <th>Total</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          {visible.map((res) => (
+            <tr key={res.id}>
+              <td>{getUserById(res.userId)?.name}</td>
+              <td>{getRoomById(res.roomId)?.name}</td>
+              <td>{formatDate(res.checkIn)} → {formatDate(res.checkOut)}</td>
+              <td>{formatCurrency(res.total)}</td>
+              <td>{res.status}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 }
