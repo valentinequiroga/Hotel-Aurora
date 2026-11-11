@@ -6,6 +6,7 @@ import { seedUsers } from "../data/seeds";
 import { generateId, isValidEmail } from "../utils/format";
 import { todayISO } from "../utils/dates";
 
+
 /*
   AuthContext: usuarios, sesión y roles.
 

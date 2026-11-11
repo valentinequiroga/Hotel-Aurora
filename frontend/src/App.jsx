@@ -15,10 +15,12 @@ import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import AdminUsers from "./pages/admin/AdminUsers";
 import NotFound from "./pages/NotFound";
+
 // Persona B
 import Home from "./pages/guest/Home";
 import Rooms from "./pages/guest/Rooms";
 import MyReservations from "./pages/guest/MyReservations";
+
 // Persona C
 import Dashboard from "./pages/admin/Dashboard";
 import Occupancy from "./pages/admin/Occupancy";
