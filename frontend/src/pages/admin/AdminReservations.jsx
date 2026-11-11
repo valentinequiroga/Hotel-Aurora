@@ -1,5 +1,8 @@
 import { useData } from "../../context/DataContext";
 import { useAuth } from "../../context/AuthContext"
+import { formatDate } from "../../utils/dates";
+import { formatCurrency } from "../../utils/format";
+
 
 export default function AdminReservations() {
   const { reservations, getRoomById } = useData();
@@ -23,8 +26,8 @@ export default function AdminReservations() {
         <tr key={res.id}>
           <td>{getUserById(res.userId)?.name}</td>
           <td>{getRoomById(res.roomId)?.name}</td>
-          <td>{res.checkIn} → {res.checkOut}</td>
-          <td>${res.total}</td>
+          <td>{formatDate(res.checkIn)} → {formatDate(res.checkOut)}</td>
+          <td>{formatCurrency(res.total)}</td>
           <td>{res.status}</td>
         </tr>
       ))}
