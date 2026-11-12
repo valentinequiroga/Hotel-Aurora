@@ -4,6 +4,8 @@ import { useAuth } from "../../context/AuthContext";
 import { RESERVATION_STATUS } from "../../data/constants";
 import { formatDate } from "../../utils/dates";
 import { formatCurrency } from "../../utils/format";
+import { toast } from "react-toastify";
+
 
 export default function AdminReservations() {
   const { reservations, setReservations, getRoomById } = useData();
@@ -21,6 +23,7 @@ export default function AdminReservations() {
           : reservaActual
       )
     );
+    toast.success(`Estado actualizado a "${nuevoEstado}"`);
   };
   const estadosPermitidosDesdeCadaEstado = {
     pendiente: ["confirmada", "cancelada"],
