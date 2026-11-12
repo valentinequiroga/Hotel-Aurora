@@ -22,6 +22,13 @@ export default function AdminReservations() {
       )
     );
   };
+  const estadosPermitidosDesdeCadaEstado = {
+    pendiente: ["confirmada", "cancelada"],
+    confirmada: ["checkin", "cancelada"],
+    checkin: ["finalizada"],
+    finalizada: [],
+    cancelada: [],
+  };
 
   return (
     <div>
@@ -58,7 +65,8 @@ export default function AdminReservations() {
                   value={res.status}
                   onChange={(e) => cambiarEstadoDeReserva(res.id, e.target.value)}
                 >
-                  {Object.values(RESERVATION_STATUS).map((estado) => (
+                  <option value={res.status}>{res.status}</option>
+                  {estadosPermitidosDesdeCadaEstado[res.status].map((estado) => (
                     <option key={estado} value={estado}>{estado}</option>
                   ))}
                 </select>
