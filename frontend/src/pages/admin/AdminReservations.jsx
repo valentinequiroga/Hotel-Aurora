@@ -61,15 +61,19 @@ export default function AdminReservations() {
               <td>{formatCurrency(res.total)}</td>
               <td>{res.status}</td>
               <td>
-                <select
-                  value={res.status}
-                  onChange={(e) => cambiarEstadoDeReserva(res.id, e.target.value)}
-                >
-                  <option value={res.status}>{res.status}</option>
-                  {estadosPermitidosDesdeCadaEstado[res.status].map((estado) => (
-                    <option key={estado} value={estado}>{estado}</option>
-                  ))}
-                </select>
+                {estadosPermitidosDesdeCadaEstado[res.status].length === 0 ? (
+                  <span>{res.status}</span>
+                ) : (
+                  <select
+                    value={res.status}
+                    onChange={(e) => cambiarEstadoDeReserva(res.id, e.target.value)}
+                  >
+                    <option value={res.status}>{res.status}</option>
+                    {estadosPermitidosDesdeCadaEstado[res.status].map((estado) => (
+                      <option key={estado} value={estado}>{estado}</option>
+                    ))}
+                  </select>
+                )}
               </td>
             </tr>
 
