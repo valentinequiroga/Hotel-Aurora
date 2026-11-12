@@ -6,14 +6,22 @@ import { formatDate } from "../../utils/dates";
 import { formatCurrency } from "../../utils/format";
 
 export default function AdminReservations() {
-  const { reservations, getRoomById } = useData();
+  const { reservations, setReservations, getRoomById } = useData();
   const { getUserById } = useAuth();
   const [filter, setFilter] = useState("todas");
-
   const visible =
     filter === "todas"
       ? reservations
       : reservations.filter((res) => res.status === filter);
+  const confirmarReserva = (idDeLaReservaAConfirmar) => {   // lo llena el botón
+    setReservations((listaActualDeReservas) =>               //lo llena React
+      listaActualDeReservas.map((reservaActual) =>           //lo llena .map una por vuelta
+        reservaActual.id === idDeLaReservaAConfirmar
+          ? { ...reservaActual, status: "confirmada" }
+          : reservaActual
+      )
+    );
+  };
 
   return (
     <div>
@@ -45,7 +53,9 @@ export default function AdminReservations() {
               <td>{formatDate(res.checkIn)} → {formatDate(res.checkOut)}</td>
               <td>{formatCurrency(res.total)}</td>
               <td>{res.status}</td>
+              <button onClick={() => confirmarReserva(res.id)}>Confirmar</button>
             </tr>
+
           ))}
         </tbody>
       </table>
