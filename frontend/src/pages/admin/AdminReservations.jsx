@@ -13,11 +13,11 @@ export default function AdminReservations() {
     filter === "todas"
       ? reservations
       : reservations.filter((res) => res.status === filter);
-  const confirmarReserva = (idDeLaReservaAConfirmar) => {   // lo llena el botón
-    setReservations((listaActualDeReservas) =>               //lo llena React
-      listaActualDeReservas.map((reservaActual) =>           //lo llena .map una por vuelta
-        reservaActual.id === idDeLaReservaAConfirmar
-          ? { ...reservaActual, status: "confirmada" }
+  const cambiarEstadoDeReserva = (idDeLaReserva, nuevoEstado) => {   // los dos los llena el botón
+    setReservations((listaActualDeReservas) =>                       // lo llena React
+      listaActualDeReservas.map((reservaActual) =>                   // lo llena .map
+        reservaActual.id === idDeLaReserva
+          ? { ...reservaActual, status: nuevoEstado }
           : reservaActual
       )
     );
@@ -53,7 +53,16 @@ export default function AdminReservations() {
               <td>{formatDate(res.checkIn)} → {formatDate(res.checkOut)}</td>
               <td>{formatCurrency(res.total)}</td>
               <td>{res.status}</td>
-              <button onClick={() => confirmarReserva(res.id)}>Confirmar</button>
+              <td>
+                <select
+                  value={res.status}
+                  onChange={(e) => cambiarEstadoDeReserva(res.id, e.target.value)}
+                >
+                  {Object.values(RESERVATION_STATUS).map((estado) => (
+                    <option key={estado} value={estado}>{estado}</option>
+                  ))}
+                </select>
+              </td>
             </tr>
 
           ))}
