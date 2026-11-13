@@ -1,13 +1,23 @@
 import { useState } from "react";
 import { validateDates } from "../../utils/booking";
 import { addDays, todayISO } from "../../utils/dates";
+import { useData } from "../../context/DataContext";
 
-const GUEST_OPTIONS = [1, 2, 3, 4, 5];
+
 const EMPTY = { checkIn: "", checkOut: "", guests: 1 };
 
 
 export default function SearchBar({ initial = EMPTY, onSearch, onClear }) {
+  const { rooms } = useData();
   const [data, setData] = useState(initial);
+
+  // El máximo de huéspedes sale de la habitación activa con más capacidad
+  let maxGuests = 1;
+  rooms.forEach((room) => {
+    if (room.active && room.capacity > maxGuests) maxGuests = room.capacity;
+  });
+  const guestOptions = [];
+  for (let n = 1; n <= maxGuests; n++) guestOptions.push(n);
   const [error, setError] = useState("");
 
   const updateData = (e) => {
@@ -71,7 +81,7 @@ export default function SearchBar({ initial = EMPTY, onSearch, onClear }) {
         <div>
           <label htmlFor="guests" className="eyebrow mb-1.5 block">Huéspedes</label>
           <select id="guests" name="guests" className="input" value={data.guests} onChange={updateData}>
-            {GUEST_OPTIONS.map((n) => (
+            {guestOptions.map((n) => (
               <option key={n} value={n}>
                 {n} {n === 1 ? "huésped" : "huéspedes"}
               </option>
