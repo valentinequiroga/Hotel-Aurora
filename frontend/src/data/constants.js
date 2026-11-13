@@ -71,4 +71,5 @@ export const STORAGE_KEYS = {
   SESSION: "aurora_session",
   ROOMS: "aurora_rooms",
   RESERVATIONS: "aurora_reservations",
+  SEARCH: "aurora_search",
 };

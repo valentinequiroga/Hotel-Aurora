@@ -17,9 +17,11 @@ import AdminUsers from "./pages/admin/AdminUsers";
 import NotFound from "./pages/NotFound";
 
 // Persona B
+import RoomDetail from "./pages/guest/RoomDetail";
 import Home from "./pages/guest/Home";
 import Rooms from "./pages/guest/Rooms";
 import MyReservations from "./pages/guest/MyReservations";
+
 
 // Persona C
 import Dashboard from "./pages/admin/Dashboard";
@@ -39,6 +41,7 @@ export default function App() {
               {/* Público */}
               <Route path="/" element={<Home />} />
               <Route path="/habitaciones" element={<Rooms />} />
+              <Route path="/habitaciones/:id" element={<RoomDetail />} />
 
               {/* Solo sin sesión */}
               <Route element={<GuestOnlyRoute />}>
