@@ -2,15 +2,15 @@ import { useData } from "../../context/DataContext";
 import { formatCurrency } from "../../utils/format";
 
 export default function AdminRooms() {
-  const { rooms, setRooms} = useData();
-  
+  const { rooms, setRooms } = useData();
+
   //Funciones
   const cambiarEstadoDeHabitacion = (idDeLaHabitacion) => {
-    setRooms((listaActualDeHabitaciones) => 
-    listaActualDeHabitaciones.map((habitacion) =>
-    habitacion.id === idDeLaHabitacion
-     ? {...habitacion, active: !habitacion.active }
-     :habitacion
+    setRooms((listaActualDeHabitaciones) =>
+      listaActualDeHabitaciones.map((habitacion) =>
+        habitacion.id === idDeLaHabitacion
+          ? { ...habitacion, active: !habitacion.active }
+          : habitacion
       )
     );
   }
@@ -27,33 +27,39 @@ export default function AdminRooms() {
               <th className="px-6 py-4 font-medium">Nombre</th>
               <th className="px-6 py-4 font-medium">Tipo</th>
               <th className="px-6 py-4 font-medium">Capacidad</th>
-               <th className="px-6 py-4 font-medium">Camas</th>
+              <th className="px-6 py-4 font-medium">Camas</th>
               <th className="px-6 py-4 font-medium">Precio/noche</th>
-               <th className="px-6 py-4 font-medium">Tamaño</th>
+              <th className="px-6 py-4 font-medium">Tamaño</th>
               <th className="px-6 py-4 font-medium ">Estado</th>
               <th className="px-6 py-4 font-medium text-right">Acciones</th>
             </tr>
           </thead>
-        
-        <tbody>
-          {rooms.map((habitacion) => (           // habitacion: lo llena .map, una por vuelta
-            <tr key={habitacion.id}>             {/* key: React necesita saber qué fila es cuál */}
-              <td className="px-6 py-4">{habitacion.number}</td>
-              <td className="px-6 py-4">{habitacion.name}</td>
-              <td className="px-6 py-4">{habitacion.type}</td>
-              <td className="px-6 py-4">{habitacion.capacity}</td>
-              <td className="px-6 py-4">{habitacion.beds}</td>
-              <td className="px-6 py-4">{formatCurrency(habitacion.pricePerNight)}</td> 
-              <td className="px-6 py-4">{habitacion.size}</td>
-              <td className="px-6 py-4">{habitacion.active ? "Activa" : "Inactiva"}</td>
-              <td className="px-6 py-4 text-right">
-                <button onClick={() => cambiarEstadoDeHabitacion (habitacion.id) }>
-                 { habitacion.active ? "Desactivar" : "Activar" }
-                </button> 
-              </td>
-            </tr>
-          ))}
-        </tbody>
+
+          <tbody className="divide-y divide-line">
+            {rooms.map((habitacion) => (           // habitacion: lo llena .map, una por vuelta
+              <tr key={habitacion.id} className="transition-colors hover:bg-line/30">             {/* key: React necesita saber qué fila es cuál */}
+                <td className="px-6 py-4">{habitacion.number}</td>
+                <td className="px-6 py-4">{habitacion.name}</td>
+                <td className="px-6 py-4">{habitacion.type}</td>
+                <td className="px-6 py-4">{habitacion.capacity}</td>
+                <td className="px-6 py-4">{habitacion.beds}</td>
+                <td className="px-6 py-4">{formatCurrency(habitacion.pricePerNight)}</td>
+                <td className="px-6 py-4">{habitacion.size}</td>
+                <td className="px-6 py-4">{habitacion.active ? "Activa" : "Inactiva"}</td>
+                <td className="px-6 py-5 text-right">
+                  <span
+                    className={
+                      habitacion.active
+                        ? "rounded-full border px-3 py-1 text-sm transition-colors bg-ok-bg text-ok-text border-ok-text/20 hover:border-ok-text"
+                        : "rounded-full border px-3 py-1 text-sm transition-colors bg-bad-bg text-bad-text border-bad-text/20 hover:border-bad-text"
+                    }
+                  >
+                    {habitacion.active ? "Activa" : "Inactiva"}
+                  </span>
+                </td>
+              </tr>
+            ))}
+          </tbody>
         </table>
       </div>
     </div>
