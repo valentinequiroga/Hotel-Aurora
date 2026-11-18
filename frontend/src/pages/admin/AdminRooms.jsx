@@ -1,8 +1,11 @@
 import { useData } from "../../context/DataContext";
 import { formatCurrency } from "../../utils/format";
+import { useState } from "react";
+import Modal from "../../components/ui/Modal";
 
 export default function AdminRooms() {
   const { rooms, setRooms, reservations } = useData();
+  const [habitacionEditando, setHabitacionEditando] = useState(null);
 
   //Funciones
   const cambiarEstadoDeHabitacion = (idDeLaHabitacion) => {
@@ -35,6 +38,7 @@ export default function AdminRooms() {
       )
     );
   };
+
 
   return (
     <div>
@@ -80,17 +84,35 @@ export default function AdminRooms() {
 
                 </td>
                 <td className="px-6 py-5 ">
-                  <button
-                    onClick={() => borrarHabitacion(habitacion.id)}
-                    className="rounded-full border border-line px-3 py-1 text-s transition-colors hover:bg-bad-bg hover:text-bad-text hover:border-bad-text/20"
-                  >
-                    Eliminar
-                  </button>
+                  <div className="flex items-center justify-end gap-2 whitespace-nowrap">
+                    <button
+                      onClick={() => setHabitacionEditando(habitacion)}
+                      className="rounded-full border border-line px-3 py-1 text-xs transition-colors hover:bg-line/30"
+                    >
+                      ✏️
+                    </button>
+                    <button
+                      onClick={() => borrarHabitacion(habitacion.id)}
+                      className="rounded-card px-3 py-1.5 text-sm font-medium text-bad-text hover:bg-bad-bg disabled:cursor-not-allowed disabled:opacity-40"
+                    >
+                      Eliminar
+                    </button>
+                  </div>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
+            //Modal
+        {habitacionEditando && (
+          <Modal
+            title="Editar habitación"
+            onClose={() => setHabitacionEditando(null)}
+          >
+            <p>Editando: {habitacionEditando.name}</p>
+          </Modal>
+        )}
+
       </div>
     </div>
 
