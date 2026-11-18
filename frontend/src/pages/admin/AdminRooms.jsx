@@ -2,6 +2,7 @@ import { useData } from "../../context/DataContext";
 import { formatCurrency } from "../../utils/format";
 import { useState } from "react";
 import Modal from "../../components/ui/Modal";
+import RoomForm from "../../components/admin/RoomForm";
 
 export default function AdminRooms() {
   const { rooms, setRooms, reservations } = useData();
@@ -37,6 +38,17 @@ export default function AdminRooms() {
         (habitacion) => habitacion.id !== idDeLaHabitacion
       )
     );
+  };
+
+  const guardarHabitacion = (habitacionEditada) => {
+    setRooms((listaActualDeHabitaciones) =>
+      listaActualDeHabitaciones.map((habitacion) =>
+        habitacion.id === habitacionEditada.id
+          ? { ...habitacionEditada, pricePerNight: Number(habitacionEditada.pricePerNight) }
+          : habitacion
+      )
+    );
+    setHabitacionEditando(null);   // cierra el modal
   };
 
 
@@ -109,7 +121,11 @@ export default function AdminRooms() {
             title="Editar habitación"
             onClose={() => setHabitacionEditando(null)}
           >
-            <p>Editando: {habitacionEditando.name}</p>
+            <RoomForm
+              habitacionInicial={habitacionEditando}
+              onGuardar={guardarHabitacion}
+              onCancelar={() => setHabitacionEditando(null)}
+            />
           </Modal>
         )}
 
