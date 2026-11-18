@@ -3,6 +3,7 @@ import { formatCurrency } from "../../utils/format";
 import { useState } from "react";
 import Modal from "../../components/ui/Modal";
 import RoomForm from "../../components/admin/RoomForm";
+import { Pencil } from "lucide-react";   
 
 export default function AdminRooms() {
   const { rooms, setRooms, reservations } = useData();
@@ -99,9 +100,9 @@ export default function AdminRooms() {
                   <div className="flex items-center justify-end gap-2 whitespace-nowrap">
                     <button
                       onClick={() => setHabitacionEditando(habitacion)}
-                      className="rounded-full border border-line px-3 py-1 text-xs transition-colors hover:bg-line/30"
+                      className="rounded-full border border-line px-3 py-1 text-xs text-primary transition-colors hover:bg-primary hover:text-white"
                     >
-                      ✏️
+                    <Pencil size={16} strokeWidth={1.8} /> 
                     </button>
                     <button
                       onClick={() => borrarHabitacion(habitacion.id)}
@@ -115,7 +116,6 @@ export default function AdminRooms() {
             ))}
           </tbody>
         </table>
-            //Modal
         {habitacionEditando && (
           <Modal
             title="Editar habitación"
