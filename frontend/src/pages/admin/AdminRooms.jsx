@@ -1,8 +1,19 @@
 import { useData } from "../../context/DataContext";
-
+import { formatCurrency } from "../../utils/format";
 
 export default function AdminRooms() {
-  const { rooms } = useData();
+  const { rooms, setRooms} = useData();
+  
+  //Funciones
+  const cambiarEstadoDeHabitacion = (idDeLaHabitacion) => {
+    setRooms((listaActualDeHabitaciones) => 
+    listaActualDeHabitaciones.map((habitacion) =>
+    habitacion.id === idDeLaHabitacion
+     ? {...habitacion, active: !habitacion.active }
+     :habitacion
+      )
+    );
+  }
 
   return (
     <div>
@@ -19,24 +30,31 @@ export default function AdminRooms() {
                <th className="px-6 py-4 font-medium">Camas</th>
               <th className="px-6 py-4 font-medium">Precio/noche</th>
                <th className="px-6 py-4 font-medium">Tamaño</th>
-              <th className="px-6 py-4 font-medium text-right">Estado</th>
+              <th className="px-6 py-4 font-medium ">Estado</th>
+              <th className="px-6 py-4 font-medium text-right">Acciones</th>
             </tr>
           </thead>
-        </table>
+        
         <tbody>
           {rooms.map((habitacion) => (           // habitacion: lo llena .map, una por vuelta
             <tr key={habitacion.id}>             {/* key: React necesita saber qué fila es cuál */}
-              <td className="px-6 py-5">{habitacion.number}</td>
-              <td className="px-6 py-5">{habitacion.name}</td>
-              <td className="px-6 py-5">{habitacion.type}</td>
-              <td className="px-6 py-5">{habitacion.capacity}</td>
-              <td className="px-6 py-5">{habitacion.beds}</td>
-              <td className="px-6 py-5">{habitacion.pricePerNight}</td> 
-              <td className="px-6 py-5">{habitacion.size}</td>
-              <td className="px-6 py-5">{habitacion.active ? "Activa" : "Inactiva"}</td>
+              <td className="px-6 py-4">{habitacion.number}</td>
+              <td className="px-6 py-4">{habitacion.name}</td>
+              <td className="px-6 py-4">{habitacion.type}</td>
+              <td className="px-6 py-4">{habitacion.capacity}</td>
+              <td className="px-6 py-4">{habitacion.beds}</td>
+              <td className="px-6 py-4">{formatCurrency(habitacion.pricePerNight)}</td> 
+              <td className="px-6 py-4">{habitacion.size}</td>
+              <td className="px-6 py-4">{habitacion.active ? "Activa" : "Inactiva"}</td>
+              <td className="px-6 py-4 text-right">
+                <button onClick={() => cambiarEstadoDeHabitacion (habitacion.id) }>
+                 { habitacion.active ? "Desactivar" : "Activar" }
+                </button> 
+              </td>
             </tr>
           ))}
         </tbody>
+        </table>
       </div>
     </div>
 
