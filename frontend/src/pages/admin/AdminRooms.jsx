@@ -71,8 +71,8 @@ export default function AdminRooms() {
                     onClick={() => cambiarEstadoDeHabitacion(habitacion.id)}
                     className={
                       habitacion.active
-                        ? "rounded-full border px-3 py-1 text-sm transition-colors bg-ok-bg text-ok-text border-ok-text/20 hover:border-ok-text"
-                        : "rounded-full border px-3 py-1 text-sm transition-colors bg-bad-bg text-bad-text border-bad-text/20 hover:border-bad-text"
+                        ? "rounded-full border px-3 py-1 text-s transition-colors bg-ok-bg text-ok-text border-ok-text/20 hover:border-ok-text"
+                        : "rounded-full border px-3 py-1 text-s transition-colors bg-bad-bg text-bad-text border-bad-text/20 hover:border-bad-text"
                     }
                   >
                     {habitacion.active ? "Activa" : "Inactiva"}
@@ -82,7 +82,7 @@ export default function AdminRooms() {
                 <td className="px-6 py-5 ">
                   <button
                     onClick={() => borrarHabitacion(habitacion.id)}
-                    className="rounded-full border border-line px-3 py-1 text-xs transition-colors hover:bg-bad-bg hover:text-bad-text hover:border-bad-text/20"
+                    className="rounded-full border border-line px-3 py-1 text-s transition-colors hover:bg-bad-bg hover:text-bad-text hover:border-bad-text/20"
                   >
                     Eliminar
                   </button>
