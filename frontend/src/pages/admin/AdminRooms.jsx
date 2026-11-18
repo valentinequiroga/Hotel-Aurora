@@ -2,7 +2,7 @@ import { useData } from "../../context/DataContext";
 import { formatCurrency } from "../../utils/format";
 
 export default function AdminRooms() {
-  const { rooms, setRooms } = useData();
+  const { rooms, setRooms, reservations } = useData();
 
   //Funciones
   const cambiarEstadoDeHabitacion = (idDeLaHabitacion) => {
@@ -14,6 +14,27 @@ export default function AdminRooms() {
       )
     );
   }
+
+  const tieneReservasActivas = (idDeLaHabitacion) =>
+    reservations.some(
+      (res) =>
+        res.roomId === idDeLaHabitacion &&
+        res.status !== "cancelada" &&
+        res.status !== "finalizada"
+    );
+
+  const borrarHabitacion = (idDeLaHabitacion) => {
+    if (tieneReservasActivas(idDeLaHabitacion)) {
+      alert("No se puede eliminar: la habitación tiene reservas activas.");
+      return;                                  // corta acá, no borra
+    }
+
+    setRooms((listaActualDeHabitaciones) =>
+      listaActualDeHabitaciones.filter(
+        (habitacion) => habitacion.id !== idDeLaHabitacion
+      )
+    );
+  };
 
   return (
     <div>
@@ -37,17 +58,17 @@ export default function AdminRooms() {
 
           <tbody className="divide-y divide-line">
             {rooms.map((habitacion) => (           // habitacion: lo llena .map, una por vuelta
-              <tr key={habitacion.id} className="transition-colors hover:bg-line/30">             {/* key: React necesita saber qué fila es cuál */}
+              <tr key={habitacion.id} className="transition-colors hover:bg-line/30 ">             {/* key: React necesita saber qué fila es cuál */}
                 <td className="px-6 py-4">{habitacion.number}</td>
                 <td className="px-6 py-4">{habitacion.name}</td>
                 <td className="px-6 py-4">{habitacion.type}</td>
                 <td className="px-6 py-4">{habitacion.capacity}</td>
-                <td className="px-6 py-4">{habitacion.beds}</td>
-                <td className="px-6 py-4">{formatCurrency(habitacion.pricePerNight)}</td>
+                <td className="px-6 py-4 ">{habitacion.beds}</td>
+                <td className="px-6 py-4 whitespace-nowrap">{formatCurrency(habitacion.pricePerNight)}</td>
                 <td className="px-6 py-4">{habitacion.size}</td>
-                <td className="px-6 py-4">{habitacion.active ? "Activa" : "Inactiva"}</td>
-                <td className="px-6 py-5 text-right">
+                <td className="px-6 py-5 ">
                   <span
+                    onClick={() => cambiarEstadoDeHabitacion(habitacion.id)}
                     className={
                       habitacion.active
                         ? "rounded-full border px-3 py-1 text-sm transition-colors bg-ok-bg text-ok-text border-ok-text/20 hover:border-ok-text"
@@ -56,6 +77,15 @@ export default function AdminRooms() {
                   >
                     {habitacion.active ? "Activa" : "Inactiva"}
                   </span>
+
+                </td>
+                <td className="px-6 py-5 ">
+                  <button
+                    onClick={() => borrarHabitacion(habitacion.id)}
+                    className="rounded-full border border-line px-3 py-1 text-xs transition-colors hover:bg-bad-bg hover:text-bad-text hover:border-bad-text/20"
+                  >
+                    Eliminar
+                  </button>
                 </td>
               </tr>
             ))}
