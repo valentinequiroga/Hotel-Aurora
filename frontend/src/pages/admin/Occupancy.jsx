@@ -10,7 +10,7 @@ export default function Occupancy() {
   const [desplazamiento, setDesplazamiento] = useState(0);
   const dias = [];
 
-  for (let i = 0; i < 60; i++) {
+  for (let i = 0; i < 30; i++) {
     const fecha = new Date();
     fecha.setDate(fecha.getDate() + i);
     dias.push(fecha);
@@ -40,7 +40,7 @@ export default function Occupancy() {
 
     <div>
       <span className="accent-rule" aria-hidden="true" />
-      <h1 className="text-4xl md:text-5xl pb-5">Grilla de ocupación</h1>
+      <h1 className="text-4xl md:text-5xl pb-5">Calendario de Reservas</h1>
 
       <div className="flex gap-5 mb-4 text-sm">
         {Object.entries(STATUS_META)
