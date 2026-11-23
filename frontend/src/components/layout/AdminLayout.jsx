@@ -6,7 +6,7 @@ import Logo from "../ui/Logo";
 
 // Secciones del panel. Para sumar una nueva, agregala acá y en las rutas de App.jsx.
 const adminLinks = [
-  { to: "/admin", label: "Resumen", end: true },
+  { to: "/admin", label: "Panel de recepción", end: true },
   { to: "/admin/ocupacion", label: "Ocupación" },
   { to: "/admin/reservas", label: "Reservas" },
   { to: "/admin/habitaciones", label: "Habitaciones" },
