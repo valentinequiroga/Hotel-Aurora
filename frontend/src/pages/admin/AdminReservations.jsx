@@ -38,7 +38,7 @@ export default function AdminReservations() {
       <div className="flex items-center justify-between ">
         <h1 className="text-4xl md:text-5xl  pb-3">Reservas</h1>
 
-        <select className="input w-auto py-1" value={filter} onChange={(e) => setFilter(e.target.value)}>
+        <select className="input w-auto py-2" value={filter} onChange={(e) => setFilter(e.target.value)}>
           <option value="todas">Todas</option>
           {Object.values(RESERVATION_STATUS).map((s) => (
             <option key={s} value={s}>{s}</option>
