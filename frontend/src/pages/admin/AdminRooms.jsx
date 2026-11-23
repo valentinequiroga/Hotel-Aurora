@@ -18,6 +18,9 @@ export default function AdminRooms() {
     beds: "",
     size: "",
     active: true,
+    description: "",
+    amenities: [],
+    image: "",
   };
 
   //Funciones
@@ -53,13 +56,32 @@ export default function AdminRooms() {
   };
 
   const guardarHabitacion = (habitacionEditada) => {
-    setRooms((listaActualDeHabitaciones) =>
-      listaActualDeHabitaciones.map((habitacion) =>
-        habitacion.id === habitacionEditada.id
-          ? { ...habitacionEditada, pricePerNight: Number(habitacionEditada.pricePerNight) }
-          : habitacion
-      )
-    );
+    if (habitacionEditada.id) {
+      setRooms((listaActualDeHabitaciones) =>
+        listaActualDeHabitaciones.map((habitacion) =>
+          habitacion.id === habitacionEditada.id
+            ? {
+              ...habitacionEditada, pricePerNight: Number(habitacionEditada.pricePerNight), capacity: Number(habitacionEditada.capacity),
+              size: Number(habitacionEditada.size),
+              amenities: habitacionEditada.amenities
+                .map((comodidad) => comodidad.trim())
+                .filter((comodidad) => comodidad !== ""),
+            }
+            : habitacion
+        )
+      );
+
+    } else {
+      setRooms((listaActualDeHabitaciones) => [
+        ...listaActualDeHabitaciones,
+        {
+          ...habitacionEditada,
+          pricePerNight: Number(habitacionEditada.pricePerNight),
+          id: `room-${Date.now()}`,
+        },
+      ]);
+    }
+
     setHabitacionEditando(null);   // cierra el modal
   };
 
@@ -68,17 +90,17 @@ export default function AdminRooms() {
     <div>
       <span className="accent-rule" aria-hidden="true" />
       <div className="flex items-center justify-between ">
-      <h1 className="text-4xl md:text-5xl pb-3">Habitaciones</h1>
+        <h1 className="text-4xl md:text-5xl pb-3">Habitaciones</h1>
 
-      <div className="flex justify-end">
-        <button
-          onClick={() => setHabitacionEditando(habitacionVacia)}
-          className="rounded-full px-4 py-1.5 text-sm transition-colors bg-primary text-white hover:opacity-80"
-        >
-          + Nueva habitación
-        </button>
+        <div className="flex justify-end">
+          <button
+            onClick={() => setHabitacionEditando(habitacionVacia)}
+            className="rounded-full px-4 py-1.5 text-sm transition-colors bg-primary text-white hover:opacity-80"
+          >
+            + Nueva habitación
+          </button>
+        </div>
       </div>
-    </div>
 
       <div className="card mt-3 overflow-x-auto p-0">
         <table className="w-full min-w-[640px] text-left text-sm">
