@@ -23,7 +23,7 @@ export default function Occupancy() {
     return `${anio}-${mes}-${numeroDeDia}`;
   };
 
-  console.log(convertirATexto(dias[0]));
+  
 
   const buscarReserva = (habitacion, dia) => {
     const diaTexto = convertirATexto(dia);

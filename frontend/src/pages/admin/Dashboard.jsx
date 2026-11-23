@@ -1,16 +1,7 @@
 import { useData } from "../../context/DataContext";
 import { formatDate } from "../../utils/dates";
 import { formatCurrency } from "../../utils/format";
-
-// Tarjeta chiquita para cada número. Va en este mismo archivo para no crear otro.
-function StatCard({ titulo, valor }) {
-  return (
-    <div className="bg-white rounded-xl shadow p-5">
-      <p className="text-sm uppercase tracking-wide text-gray-500">{titulo}</p>
-      <p className="text-3xl mt-2">{valor}</p>
-    </div>
-  );
-}
+import StatCard from "../../components/admin/StatCard";
 
 export default function Dashboard() {
   const { reservations, rooms, getRoomById } = useData();
