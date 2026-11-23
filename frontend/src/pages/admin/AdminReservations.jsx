@@ -35,14 +35,16 @@ export default function AdminReservations() {
   return (
     <div>
       <span className="accent-rule" aria-hidden="true" />
-      <h1 className="text-4xl md:text-5xl  pb-5">Reservas</h1>
+      <div className="flex items-center justify-between ">
+        <h1 className="text-4xl md:text-5xl  pb-3">Reservas</h1>
 
-      <select className="input w-auto py-1" value={filter} onChange={(e) => setFilter(e.target.value)}>
-        <option value="todas">Todas</option>
-        {Object.values(RESERVATION_STATUS).map((s) => (
-          <option key={s} value={s}>{s}</option>
-        ))}
-      </select>
+        <select className="input w-auto py-1" value={filter} onChange={(e) => setFilter(e.target.value)}>
+          <option value="todas">Todas</option>
+          {Object.values(RESERVATION_STATUS).map((s) => (
+            <option key={s} value={s}>{s}</option>
+          ))}
+        </select>
+      </div>
 
       <div className="card mt-3 overflow-x-auto p-0">
         <table className="w-full min-w-[640px] text-left text-sm">
