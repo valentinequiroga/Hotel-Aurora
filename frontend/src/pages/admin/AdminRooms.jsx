@@ -3,11 +3,22 @@ import { formatCurrency } from "../../utils/format";
 import { useState } from "react";
 import Modal from "../../components/ui/Modal";
 import RoomForm from "../../components/admin/RoomForm";
-import { Pencil } from "lucide-react";   
+import { Pencil } from "lucide-react";
 
 export default function AdminRooms() {
   const { rooms, setRooms, reservations } = useData();
   const [habitacionEditando, setHabitacionEditando] = useState(null);
+
+  const habitacionVacia = {
+    name: "",
+    pricePerNight: "",
+    number: "",
+    type: "Simple",
+    capacity: "",
+    beds: "",
+    size: "",
+    active: true,
+  };
 
   //Funciones
   const cambiarEstadoDeHabitacion = (idDeLaHabitacion) => {
@@ -56,7 +67,19 @@ export default function AdminRooms() {
   return (
     <div>
       <span className="accent-rule" aria-hidden="true" />
-      <h1 className="text-4xl md:text-5xl  pb-5">Habitaciones</h1>
+      <div className="flex items-center justify-between ">
+      <h1 className="text-4xl md:text-5xl pb-3">Habitaciones</h1>
+
+      <div className="flex justify-end">
+        <button
+          onClick={() => setHabitacionEditando(habitacionVacia)}
+          className="rounded-full px-4 py-1.5 text-sm transition-colors bg-primary text-white hover:opacity-80"
+        >
+          + Nueva habitación
+        </button>
+      </div>
+    </div>
+
       <div className="card mt-3 overflow-x-auto p-0">
         <table className="w-full min-w-[640px] text-left text-sm">
           <thead className="eyebrow border-b border-line">
@@ -102,7 +125,7 @@ export default function AdminRooms() {
                       onClick={() => setHabitacionEditando(habitacion)}
                       className="rounded-full border border-line px-3 py-1 text-xs text-primary transition-colors hover:bg-primary hover:text-white"
                     >
-                    <Pencil size={16} strokeWidth={1.8} /> 
+                      <Pencil size={16} strokeWidth={1.8} />
                     </button>
                     <button
                       onClick={() => borrarHabitacion(habitacion.id)}
@@ -118,7 +141,7 @@ export default function AdminRooms() {
         </table>
         {habitacionEditando && (
           <Modal
-            title="Editar habitación"
+            title={habitacionEditando.id ? "Editar habitación" : "Nueva habitación"}
             onClose={() => setHabitacionEditando(null)}
           >
             <RoomForm
