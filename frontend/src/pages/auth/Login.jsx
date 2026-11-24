@@ -4,11 +4,6 @@ import { toast } from "react-toastify";
 import { useAuth } from "../../context/AuthContext";
 import AuthCard from "../../components/ui/AuthCard";
 
-// Cuentas de ejemplo para probar rápido los dos roles
-const DEMO_ACCOUNTS = [
-  { label: "Recepción (admin)", email: "recepcion@aurora.com", password: "admin123" },
-  { label: "Huésped", email: "lucia@mail.com", password: "lucia123" },
-];
 
 export default function Login() {
   const { login } = useAuth();
@@ -69,25 +64,6 @@ export default function Login() {
 
         <button type="submit" className="btn-primary w-full">Ingresar</button>
       </form>
-
-      <div className="mt-6 rounded-xl bg-bg p-4">
-        <p className="text-xs font-semibold tracking-widest text-muted uppercase">Cuentas de prueba</p>
-        <div className="mt-2 flex flex-wrap gap-2">
-          {DEMO_ACCOUNTS.map((acc) => (
-            <button
-              key={acc.email}
-              type="button"
-              className="btn-secondary py-1.5 text-xs"
-              onClick={() => {
-                setForm({ email: acc.email, password: acc.password });
-                setError("");
-              }}
-            >
-              {acc.label}
-            </button>
-          ))}
-        </div>
-      </div>
     </AuthCard>
   );
 }
