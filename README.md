@@ -22,6 +22,7 @@ I built the admin side of the app:
 - **Reusable UI components:** `Modal` (rendered with React portals) and `StatCard` for dashboard metrics, plus status badges, hover states and consistent styling with Tailwind
 
 Abril Gullotta – Project base, accounts and roles: project setup, authentication and user roles (admin / guest)
+
 Franco Di Giovanni – Guest side: room browsing, booking flow and "My reservations"
 
 ## How to run
