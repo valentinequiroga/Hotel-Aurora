@@ -10,7 +10,7 @@ Team project for **Development Platforms** at Escuela Da Vinci (Buenos Aires).
 - Git + GitHub (Conventional Commits)
 
 ## Team & contributions
-- **Valentina Quiroga – Admin panel**
+Valentina Quiroga – Admin panel
 I built the admin side of the app:
 - **Occupancy grid:** 90-day calendar view showing which rooms are booked each day, with color-coded reservation blocks by status, guest names and a status legend. Room names stay fixed while the days scroll horizontally.
 - **Reservations management:** table with all bookings, status filter, and actions to confirm or cancel a reservation. Changes are saved in the shared context, so guests see the updated status in "My reservations".
@@ -21,8 +21,8 @@ I built the admin side of the app:
   - Delete protection: a room can't be deleted if it has active reservations
 - **Reusable UI components:** `Modal` (rendered with React portals) and `StatCard` for dashboard metrics, plus status badges, hover states and consistent styling with Tailwind
 
-- **Abril Gullotta – Project base, accounts and roles:** project setup, authentication and user roles (admin / guest)
-- **Franco Di Giovanni – Guest side:** room browsing, booking flow and "My reservations"
+Abril Gullotta – Project base, accounts and roles: project setup, authentication and user roles (admin / guest)
+Franco Di Giovanni – Guest side: room browsing, booking flow and "My reservations"
 
 ## How to run
 1. `cd frontend`
